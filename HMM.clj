@@ -1,6 +1,6 @@
-(ns hmm (:use [embang emit runtime]))
+(ns HMM (:use [embang emit runtime]))
 (defquery
- hmm
+ HMM
  "HMM with predicts for all states"
  (let
   [initial-state-distribution (list 1.0 1.0 1.0)]

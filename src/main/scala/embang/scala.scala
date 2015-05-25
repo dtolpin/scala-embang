@@ -11,7 +11,6 @@ package embang.scala {
 
     // Load doquery function.
     private val doquery = { 
-      require.invoke(Clojure.read("embang.trap"))
       require.invoke(Clojure.read("embang.json"))
       Clojure.`var`("embang.json", "doquery")
     }
@@ -33,7 +32,7 @@ package embang.scala {
         Clojure.read(algorithm), 
         Clojure.`var`(Clojure.read(namespace), Clojure.read(name)),
         Clojure.read(value),
-        Clojure.read(options)
+        Clojure.read("["+options+"]")
       ).asInstanceOf[java.util.Iterator[_]]
 
       // ... parsing JSON strings into JSON structures.
