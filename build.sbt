@@ -10,4 +10,4 @@ resolvers += "clojars" at "https://clojars.org/repo"
 
 // Dependencies
 
-libraryDependencies += "net.offtopia" % "embang" % "1.0.0-SNAPSHOT"
+libraryDependencies += "embang" % "embang" % "1.0.0-SNAPSHOT"
