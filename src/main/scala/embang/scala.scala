@@ -3,8 +3,11 @@ package embang.scala {
   import clojure.core._
   import scala.collection.JavaConverters._ 
   import scala.util.parsing.json._
+  import scala.collection.immutable.ListMap
 
-  object sample {
+  class Sample(val predicts: Map[String, _], val logWeight: Double)
+
+  object draw {
     // Setup Clojure runtime and require facility.
     private val require = Clojure.`var`("clojure.core", "require")
     private val apply = Clojure.`var`("clojure.core", "apply")
@@ -13,6 +16,17 @@ package embang.scala {
     private val doquery = { 
       require.invoke(Clojure.read("embang.json"))
       Clojure.`var`("embang.json", "doquery")
+    }
+
+    private[scala] def asSample(sample: Option[_]): Sample = {
+      sample match {
+        case Some(s: Map[String, Any]) => 
+          new Sample(ListMap()
+                       ++ s("predicts").asInstanceOf[List[List[Any]]]
+                            .map(l => (l(0).toString, l(1))),
+                     s("log-weight").asInstanceOf[Double])
+        case _ => new Sample(ListMap(), -1./0.)
+      }
     }
 
     def from (algorithm: String = ":lmh",
@@ -37,7 +51,7 @@ package embang.scala {
 
       // ... parsing JSON strings into JSON structures.
       for(sample <- samples.asScala)
-        yield JSON.parseFull(sample.asInstanceOf[String])
+        yield asSample(JSON.parseFull(sample.asInstanceOf[String]))
     }
 
   }
