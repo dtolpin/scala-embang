@@ -5,6 +5,19 @@ package embang.scala {
   import scala.util.parsing.json._
   import scala.collection.immutable.ListMap
 
+// Scala interface to probabilistic programming language m!
+// Synopsis:
+//
+//    import embang.scala._
+//
+//    val X = draw from (query = "HMM")
+//    for (i <- 1 to 100) {
+//      val x = X.next
+//      println(x.predicts, x.logWeight)
+//    }
+//
+// predicts is a ListMap from predict identifiers to predict values.
+
   class Sample(val predicts: Map[String, _], val logWeight: Double)
 
   object draw {
