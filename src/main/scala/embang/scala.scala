@@ -76,8 +76,8 @@ package object scala {
 
   /** equalizes samples so that they have the same weight */
   def equalize(samples: Iterator[Sample]): Iterator[Sample] = {
-    ;; Using Metropolis-Hastings,
-    ;; thanks to Brooks Paige for the idea
+    // Using Metropolis-Hastings,
+    // thanks to Brooks Paige for the idea
     var sample = samples.next
     var equalized = new Sample(sample.predicts, 0.)
     for(s <- samples) yield {
